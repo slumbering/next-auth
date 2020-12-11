@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from 'crypto'
 import jwt from '../lib/jwt'
-import parseUrl from '../lib/parse-url'
+import parseUrl, { absoluteUrl } from "../lib/parse-url";
 import cookie from './lib/cookie'
 import callbackUrlHandler from './lib/callback-url-handler'
 import parseProviders from './lib/providers'
@@ -44,8 +44,13 @@ export default async (req, res, userSuppliedOptions) => {
       csrfToken: csrfTokenFromPost
     } = body
 
+    const { origin } = absoluteUrl(req);
+
     // @todo refactor all existing references to site, baseUrl and basePath
-    const parsedUrl = parseUrl(process.env.NEXTAUTH_URL || process.env.VERCEL_URL)
+    const parsedUrl = parseUrl(
+      process.env.NEXTAUTH_URL || origin || process.env.VERCEL_URL
+    );
+    console.log("🚀 ~ file: index.js ~ line 53 ~ parsedUrl", parsedUrl)
     const baseUrl = parsedUrl.baseUrl
     const basePath = parsedUrl.basePath
 
