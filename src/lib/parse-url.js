@@ -4,33 +4,37 @@
 // supporting a default value, so a simple split is sufficent.
 export default (url) => {
   // Default values
-  const defaultHost = 'http://localhost:3000'
-  const defaultPath = '/api/auth'
+  const defaultHost = "http://localhost:3000";
+  const defaultPath = "/api/auth";
 
-  if (!url) { url = `${defaultHost}${defaultPath}` }
+  if (!url) {
+    url = `${defaultHost}${defaultPath}`;
+  }
 
   // Default to HTTPS if no protocol explictly specified
-  const protocol = url.match(/^http?:\/\//) ? 'http' : 'https'
+  const protocol = url.match(/^http?:\/\//) ? "http" : "https";
 
   // Normalize URLs by stripping protocol and no trailing slash
-  url = url.replace(/^https?:\/\//, '').replace(/\/$/, '')
+  url = url.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
   // Simple split based on first /
-  const [_host, ..._path] = url.split('/')
-  const baseUrl = _host ? `${protocol}://${_host}` : defaultHost
-  const basePath = _path.length > 0 ? `/${_path.join('/')}` : defaultPath
+  const [_host, ..._path] = url.split("/");
+  const baseUrl = _host ? `${protocol}://${_host}` : defaultHost;
+  const basePath = _path.length > 0 ? `/${_path.join("/")}` : defaultPath;
 
   return {
     baseUrl,
-    basePath
-  }
-}
+    basePath,
+  };
+};
 
 export const absoluteUrl = (req) => {
   var protocol = "https:";
   var host = req
     ? req.headers["x-forwarded-host"] || req.headers["host"]
     : window.location.host;
+
+  console.log("🚀 ~ file: parse-url.js ~ line 35 ~ host", host);
 
   if (host.indexOf("localhost") > -1 || host.indexOf(".local") > -1) {
     protocol = "http:";

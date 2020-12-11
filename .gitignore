@@ -30,6 +30,7 @@ node_modules
 /.vs/slnx.sqlite
 /.vs
 .vscode
+.history/
 
 # GitHub Actions runner
 /actions-runner
