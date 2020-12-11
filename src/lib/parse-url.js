@@ -34,8 +34,6 @@ export const absoluteUrl = (req) => {
     ? req.headers["x-forwarded-host"] || req.headers["host"]
     : window.location.host;
 
-  console.log("🚀 ~ file: parse-url.js ~ line 35 ~ host", host);
-
   if (host.indexOf("localhost") > -1 || host.indexOf(".local") > -1) {
     protocol = "http:";
   }

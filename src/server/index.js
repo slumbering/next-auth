@@ -50,7 +50,6 @@ export default async (req, res, userSuppliedOptions) => {
     const parsedUrl = parseUrl(
       process.env.NEXTAUTH_URL || origin || process.env.VERCEL_URL
     );
-    console.log("🚀 ~ file: index.js ~ line 53 ~ parsedUrl", parsedUrl)
     const baseUrl = parsedUrl.baseUrl
     const basePath = parsedUrl.basePath
 
